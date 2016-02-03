@@ -1,4 +1,5 @@
 #!/bin/bash
 
-echo start something
+cd /home/ircd
+./unreal start
 

@@ -29,6 +29,7 @@ RUN cd unrealircd && \
     make  &&  \
     make install 
 
+RUN touch ircd.log ircd.motd ircd.rules
 
 
 # https://help.ubuntu.com/lts/serverguide/irc-server.html
@@ -42,7 +43,7 @@ RUN cd unrealircd && \
 
 
 EXPOSE 6999
-
+ADD src/unrealircd.conf /home/ircd/unrealircd.conf
 ADD src/run.sh /run.sh
 CMD "/run.sh"
 

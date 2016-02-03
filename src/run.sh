@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd /home/ircd
-./unreal start
+cd /home/ircd/unrealircd
+./unrealircd start
 

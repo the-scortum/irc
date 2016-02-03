@@ -21,5 +21,9 @@ bash:
            -p 6999:6999  \
            irc bash
 
-.PHONY: build run enter bash
+clean:
+	docker rm $(docker ps -a -q)
+	docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+
+.PHONY: build run enter bash clean
 

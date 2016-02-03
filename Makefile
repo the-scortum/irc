@@ -21,9 +21,11 @@ bash:
            -p 6999:6999  \
            irc bash
 
+
 clean:
 	docker rm $(docker ps -a -q)
-	docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+	docker rmi $(docker images -f "dangling=true" -q)
+# http://www.projectatomic.io/blog/2015/07/what-are-docker-none-none-images/
 
 .PHONY: build run enter bash clean
 

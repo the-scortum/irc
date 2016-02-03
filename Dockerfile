@@ -19,7 +19,7 @@ RUN apt-get update && apt-get -y upgrade; \
 #  rm -rf /var/lib/apt/lists/*
 
 
-EXPOSE [6999]
+EXPOSE 6999
 
 ADD src/run.sh /run.sh
 CMD "/run.sh"

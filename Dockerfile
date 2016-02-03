@@ -24,7 +24,9 @@ RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz  && \
     gpg --keyserver keys.gnupg.net --recv-keys 0xA7A21B0A108FF4A9  &&  \
     wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz.asc  && \
     gpg --verify unrealircd-4.0.1.tar.gz.asc unrealircd-4.0.1.tar.gz  &&  \
-    tar -zxf unrealircd-4.0.1.tar.gz 
+    tar -zxf unrealircd-4.0.1.tar.gz  &&  \
+    chown -R ircd /home/ircd/unrealircd-4.0.1
+
 ADD src/unrealircd.conf /home/ircd/unrealircd/conf/unrealircd.conf
 RUN chown -R ircd:ircd /home/ircd
 

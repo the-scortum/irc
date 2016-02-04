@@ -31,6 +31,7 @@ run() {
              -v ~/irc/src/tmp:/tmp \
              -v ~/data-irc.scortum.com:/data \
              -p 6999:6999  \
+             -p 2222:22  \
              irc
 }
 

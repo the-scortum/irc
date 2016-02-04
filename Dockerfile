@@ -28,6 +28,7 @@ RUN  cd /home/ircd &&  \
 USER ircd
 RUN  cd /home/ircd/Unreal3.2 && ./Config
 RUN  cd /home/ircd/Unreal3.2 && make
+RUN  cd /home/ircd && ln -s /home/ircd/Unreal3.2 leaf
 RUN  cd /home/ircd/Unreal3.2 &&  \
      touch ircd.log ircd.motd ircd.rules
 

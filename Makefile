@@ -1,6 +1,10 @@
+#!/bin/bash
 
 build:
 	docker build -t irc .
+
+rebuild:
+	docker build --no-cache -t irc . 
 
 run:
 	-docker stop irc
@@ -22,9 +26,16 @@ bash:
            irc bash
 
 
+
+
 clean:
-	docker rm $(docker ps -a -q)
-	docker rmi $(docker images -f "dangling=true" -q)
+	$(eval STOPPED_CONTAINER := $(shell docker ps -a -q))
+	@echo $(STOPPED_CONTAINERS)
+	$(STOPPED_CONTAINERS): docker rm $@
+	$(eval DANGLING_IMAGES := $(shell docker images -f "dangling=true" -q))
+	@echo $(DANGLING_IMAGES)
+	$(DANGLING_IMAGES): docker rmi $@
+
 # http://www.projectatomic.io/blog/2015/07/what-are-docker-none-none-images/
 
 .PHONY: build run enter bash clean

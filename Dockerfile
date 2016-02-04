@@ -17,28 +17,26 @@ RUN apt-get update && apt-get -y upgrade; \
 #  rm -rf /var/lib/apt/lists/*
 
 
-RUN     adduser ircd
-WORKDIR /home/ircd
+RUN      adduser  ircd
+WORKDIR  /home/ircd
 
-RUN wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz  && \
-    gpg --keyserver keys.gnupg.net --recv-keys 0xA7A21B0A108FF4A9  &&  \
-    wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz.asc  && \
-    gpg --verify unrealircd-4.0.1.tar.gz.asc unrealircd-4.0.1.tar.gz  &&  \
-    tar -zxf unrealircd-4.0.1.tar.gz  &&  \
-    chown -R ircd /home/ircd/unrealircd-4.0.1
+ADD  src/unrealircd-4.0.1.tar.gz.asc   /home/ircd/unrealircd-4.0.1.tar.gz.asc
+ADD  src/unrealircd.conf               /home/ircd/unrealircd/conf/unrealircd.conf
+RUN  wget https://www.unrealircd.org/unrealircd4/unrealircd-4.0.1.tar.gz  && \
+     gpg --keyserver keys.gnupg.net --recv-keys 0xA7A21B0A108FF4A9  &&  \
+     gpg --verify unrealircd-4.0.1.tar.gz.asc unrealircd-4.0.1.tar.gz  &&  \
+     tar -zxf unrealircd-4.0.1.tar.gz  &&  \
+     rm unrealircd-4.0.1.tar.gz
+RUN  chown -R ircd:ircd /home/ircd
 
-ADD src/unrealircd.conf /home/ircd/unrealircd/conf/unrealircd.conf
-RUN chown -R ircd:ircd /home/ircd
-
+# Switch from user root to user ircd:
 USER ircd
-RUN  cd /home/ircd/unrealircd-4.0.1 && \
-     ./Config  && \
-     make  &&  \
-     make install 
+RUN  cd /home/ircd/unrealircd-4.0.1 && ./Config
+RUN  cd /home/ircd/unrealircd-4.0.1 && make
+RUN  cd /home/ircd/unrealircd-4.0.1 && make install 
 
 RUN cd /home/ircd/unrealircd &&  \
     touch ircd.log ircd.motd ircd.rules
- 
 
 EXPOSE 6999
 

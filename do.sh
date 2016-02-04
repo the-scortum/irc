@@ -29,6 +29,7 @@ run() {
   docker run -d --name irc \
              -v /etc/localtime:/etc/localtime:ro \
              -v ~/irc/src/tmp:/tmp \
+             -v ~/data-irc.scortum.com:/data \
              -p 6999:6999  \
              irc
 }
@@ -41,6 +42,7 @@ bash() {
   docker run -it --rm \
              -v /etc/localtime:/etc/localtime:ro \
              -v ~/irc/src/tmp:/tmp \
+             -v ~/data-irc.scortum.com:/data \
              -p 6999:6999  \
              irc bash
 }

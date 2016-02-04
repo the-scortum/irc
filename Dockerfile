@@ -35,7 +35,7 @@ RUN  cd /home/ircd/Unreal3.2 &&  \
 COPY src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
-EXPOSE 22, 6999
+EXPOSE 22 6999
 COPY   src/run.sh /run.sh
 CMD    "/run.sh"
 

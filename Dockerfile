@@ -17,16 +17,13 @@ RUN mkdir -p /var/run/sshd /var/log/supervisor
 #  rm -rf /var/lib/apt/lists/*
 
 
-RUN  adduser  ircd
+RUN     adduser  ircd
+COPY    src/Unreal3.2.4.tar.gz /home/ircd/Unreal.3.2.4.tar.gz
 USER    ircd
 WORKDIR /home/ircd
-
-COPY src/Unreal3.2.4.tar.gz /home/ircd/Unreal.3.2.4.tar.gz
-COPY src/unrealircd.conf    /home/ircd/Unreal3.2/unrealircd.conf
-
-RUN  cd /home/ircd &&  \
-     tar -zxf Unreal.3.2.4.tar.gz && \
-     chown -R ircd:ircd /home/ircd
+RUN     cd /home/ircd &&  \
+        tar -zxf Unreal.3.2.4.tar.gz
+#     chown -R ircd:ircd /home/ircd
 
 # Switch from user root to user ircd:
 RUN  cd /home/ircd/Unreal3.2 && ./Config
@@ -35,7 +32,6 @@ RUN  cd /home/ircd && ln -s /home/ircd/Unreal3.2 leaf
 RUN  cd /home/ircd/Unreal3.2 &&  \
      touch ircd.log ircd.motd ircd.rules
 
-USER root
 COPY src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 

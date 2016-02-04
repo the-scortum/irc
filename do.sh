@@ -65,5 +65,9 @@ help() {
   declare -F
 }
 
-"$@"
+if [[ $@ ]]; then
+ "$@"
+else
+  build
+fi
 

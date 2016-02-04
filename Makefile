@@ -28,6 +28,12 @@ bash:
 
 
 
+# Does a cleanup:
+# http://www.projectatomic.io/blog/2015/07/what-are-docker-none-none-images/
+#
+# docker rm $(docker ps -a -q)
+# docker rmi $(docker images -f "dangling=true" -q)
+#
 clean:
 	$(eval STOPPED_CONTAINER := $(shell docker ps -a -q))
 	@echo $(STOPPED_CONTAINERS)
@@ -36,7 +42,6 @@ clean:
 	@echo $(DANGLING_IMAGES)
 	$(DANGLING_IMAGES): docker rmi $@
 
-# http://www.projectatomic.io/blog/2015/07/what-are-docker-none-none-images/
 
 .PHONY: build run enter bash clean
 

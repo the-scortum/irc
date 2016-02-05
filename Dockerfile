@@ -4,8 +4,9 @@ MAINTAINER Marcus & Alex
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y upgrade; \
     apt-get install -y vim emacs; \
-    apt-get install -y gcc g++ make wget build-essential;  \
-    apt-get install -y openssl debconf libc6 libcomerr2 libcurl3 libidn11 zlib1g libssl-dev; \
+    apt-get install -y gcc g++ make wget build-essential; \
+    apt-get install -y openssl debconf libc6 libcomerr2 \
+                       libcurl3 libidn11 zlib1g libssl-dev; \
     apt-get install -y openssh-server supervisor; \
     mkdir -p /var/run/sshd /var/log/supervisor; \
     apt-get clean && \

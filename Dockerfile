@@ -23,7 +23,7 @@ RUN      cd /home/ircd            &&  ln -s /home/ircd/Unreal3.2 leaf
 RUN      cd /home/ircd/Unreal3.2  &&  touch ircd.log ircd.motd ircd.rules
 
 USER    root
-EXPOSE  22 6999
+EXPOSE  22 6990-7000
 COPY    src/supervisord.conf  /etc/supervisor/conf.d/supervisord.conf
 COPY    src/run.sh            /run.sh
 CMD     "/run.sh"

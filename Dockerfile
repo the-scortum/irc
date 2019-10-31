@@ -1,5 +1,4 @@
-FROM       ubuntu:14.04
-MAINTAINER Marcus & Alex
+FROM       ubuntu:18.04
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get -y upgrade; \
@@ -22,9 +21,13 @@ RUN      cd /home/ircd/Unreal3.2  &&  make
 RUN      cd /home/ircd            &&  ln -s /home/ircd/Unreal3.2 leaf
 RUN      cd /home/ircd/Unreal3.2  &&  touch ircd.log ircd.motd ircd.rules
 
-USER    root
+
 EXPOSE  22 6990-7000
-COPY    src/supervisord.conf  /etc/supervisor/conf.d/supervisord.conf
-COPY    src/run.sh            /run.sh
-CMD     "/run.sh"
+
+ENV TINI_VERSION v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
+
+CMD     ["/home/ircd/leaf/unreal", "start"]
 
